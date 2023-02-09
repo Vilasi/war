@@ -92,7 +92,7 @@ class GameResult {
       (this.humanCardPic = humanCardPic);
     this.pcCardPic = pcCardPic;
     this.winningCard = `${winningCardValue} of ${winningCardSuit}`;
-    this.losingCard = `${losingCardSuit} of ${losingCardValue}`;
+    this.losingCard = `${losingCardValue} of ${losingCardSuit}`;
     this.war = war;
   }
 }
@@ -174,6 +174,12 @@ async function startGame() {
         computerScore--;
         playerScore++;
 
+        if (warStorage.length > 0) {
+          playerScore += warStorage.length;
+          humanHand.push(...warStorage);
+          warStorage = [];
+        }
+
         gameRecord.push(
           new GameResult(
             roundNumber,
@@ -190,10 +196,6 @@ async function startGame() {
           )
         );
 
-        if (warStorage.length > 0) {
-          humanHand.push(...warStorage);
-        }
-
         humanHand.push(pcHand[i]);
         humanHand.push(humanHand[i]);
         humanHand.splice(i, 1);
@@ -207,6 +209,12 @@ async function startGame() {
 
         computerScore++;
         playerScore--;
+
+        if (warStorage.length > 0) {
+          computerScore += warStorage.length;
+          pcHand.push(...warStorage);
+          warStorage = [];
+        }
 
         gameRecord.push(
           new GameResult(
@@ -223,10 +231,6 @@ async function startGame() {
             true
           )
         );
-
-        if (warStorage.length > 0) {
-          pcHand.push(...warStorage);
-        }
 
         //
         pcHand.push(humanHand[i]);
@@ -279,7 +283,7 @@ async function startGame() {
         gameRecord.push(
           new GameResult(
             roundNumber,
-            'Computer',
+            'Player',
             playerScore,
             computerScore,
             humanHand[i].image,
@@ -327,6 +331,11 @@ async function startGame() {
         pcHand.length >= 5 &&
         humanHand.length >= 5
       ) {
+        const roundResults = {
+          playerCardPicture: humanHand[i].image,
+          computerCardPicture: pcHand[i].image,
+        };
+
         for (let j = 0; j < 4; j++) {
           warStorage.push(humanHand[j]);
           warStorage.push(pcHand[j]);
@@ -334,19 +343,28 @@ async function startGame() {
           computerScore--;
           playerScore--;
 
-          gameRecord.push({
-            round: roundNumber,
-            winner: 'War',
-            playerScore: playerScore,
-            computerScore: computerScore,
-            playerCardPicture: humanHand[i].image,
-            computerCardPicture: pcHand[i].image,
-            war: true,
-          });
-
           humanHand.shift();
           pcHand.shift();
         }
+
+        roundResults.round = roundNumber;
+        roundResults.winner = 'War';
+        roundResults.playerScore = playerScore;
+        roundResults.computerScore = computerScore;
+        roundResults.war = true;
+
+        gameRecord.push(roundResults);
+
+        // gameRecord.push({
+        //   round: roundNumber,
+        //   winner: 'War',
+        //   playerScore: playerScore,
+        //   computerScore: computerScore,
+        //   // playerCardPicture: humanHand[i].image,
+        //   // computerCardPicture: pcHand[i].image,
+        //   war: true,
+
+        // });
         break;
       }
 
@@ -368,6 +386,7 @@ async function startGame() {
   // console.log(humanHand, pcHand);
 
   document.querySelector('#play-one-round-button').classList.remove('d-none');
+  console.log(gameRecord);
 }
 
 // START GAME BUTTON
