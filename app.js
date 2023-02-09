@@ -148,16 +148,6 @@ async function startGame() {
       loopLength = pcHand.length;
     }
 
-    // console.log(warStorage);
-    // console.log(
-    //   { playerHand: humanHand.length },
-    //   { computerHand: pcHand.length }
-    //   //   gameRecord
-    // );
-
-    // console.log(warStorage);
-    // console.log(humanHand.length, pcHand.length);
-
     for (let i = 0; i < loopLength; i++) {
       //   console.log(humanHand[i].image);
       if (!humanHand[i] || !pcHand[i]) {
@@ -177,44 +167,12 @@ async function startGame() {
       const playerCard = humanHand[i].comparisonValue;
       const computerCard = pcHand[i].comparisonValue;
 
-      // console.log(
-      //   playerScore,
-      //   computerScore,
-      //   gameRecord[gameRecord.length - 1]
-      // );
-
-      // console.log(
-      //   playerScore,
-      //   computerScore,
-      //   gameRecord[gameRecord.length - 1]
-      // );
-
       //   humanHand.length === 0;
 
       if (playerCard > computerCard) {
         // Player Hand Win
         computerScore--;
         playerScore++;
-
-        // gameRecord.push({
-        //   round: roundNumber,
-        //   winner: 'Player',
-        //   playerCardPicture: humanHand[i].image,
-        //   computerCardPicture: pcHand[i].image,
-        //   winningCard: `${humanHand.value} of ${humanHand[i].suit}`,
-        //   losingCard: `${pcHand.value} of ${pcHand[i].suit}`,
-        //   war: false,
-        // });
-
-        // round,
-        //   winner,
-        //   humanCardPic,
-        //   pcCardPic,
-        //   winningCardSuit,
-        //   winningCardValue,
-        //   losingCardSuit,
-        //   losingCardValue,
-        //   war;
 
         gameRecord.push(
           new GameResult(
@@ -288,15 +246,6 @@ async function startGame() {
         pcHand.length > humanHand.length
       ) {
         playerScore = 0;
-        // gameRecord.push({
-        //   round: roundNumber,
-        //   winner: 'Computer',
-        //   playerCardPicture: humanHand[i].image,
-        //   computerCardPicture: pcHand[i].image,
-        //   winningCard: `${pcHand[i].value} of ${pcHand[i].suit}`,
-        //   losingCard: `${humanHand[i].value} of ${humanHand[i].suit}`,
-        //   war: true,
-        // });
 
         gameRecord.push(
           new GameResult(
@@ -407,49 +356,6 @@ async function startGame() {
 
       //     pcHand.length > humanHand.length) {
     }
-
-    // Determine if one player has insufficient cards - Ie, Lose by default
-    //   if (
-    //     humanHand.length < 4 &&
-    //     pcHand.length > humanHand.length
-    //   ) {
-    //     gameRecord.push({
-    //       round: roundNumber,
-    //       winner: 'Computer',
-    //       playerCardPicture: humanHand[i].image,
-    //       computerCardPicture: pcHand[i].image,
-    //       winningCard: `${pcHand[i].value} of ${pcHand[i].suit}`,
-    //       losingCard: `${humanHand[i].value} of ${humanHand[i].suit}`,
-    //       war: true,
-    //     });
-
-    //     pcHand.length = 0;
-    //     humanHand.length = 0;
-    //     break;
-    //   } else if (
-    //     humanHand.length > pcHand.length &&
-    //     pcHand.length < 4
-    //   ) {
-    //     gameRecord.push({
-    //       round: roundNumber,
-    //       winner: 'Player',
-    //       playerCardPicture: humanHand[i].image,
-    //       computerCardPicture: pcHand[i].image,
-    //       winningCard: `${humanHand[i].value} of ${humanHand[i].suit}`,
-    //       losingCard: `${pcHand[i].value} of ${pcHand[i].suit}`,
-    //       war: true,
-    //     });
-
-    //     pcHand.length = 0;
-    //     humanHand.length = 0;
-    //     break;
-    //   }
-
-    //   const playerWarStorage = [];
-    //   const computerWarStorage = [];
-    //   for (let j = 0; j < 4; j++) {
-
-    //   }
 
     console.log(
       `playerScore: ${playerScore}`,
