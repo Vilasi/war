@@ -112,9 +112,12 @@ async function startGame() {
   const playerComparisonHand = [...playerHand];
   const computerComparisonHand = [...computerHand];
   let warStorage = [];
+
+  let roundCounterPlayer = playerComparisonHand.length;
+  let roundCounterComputer = computerComparisonHand.length;
   //   console.log(computerComparisonHand);
 
-  while (playerComparisonHand.length > 0 && computerComparisonHand.length > 0) {
+  while (roundCounterPlayer > 0 && roundCounterComputer > 0) {
     // Determines how long the below for loop will run
     if (playerComparisonHand.length < computerComparisonHand.length) {
       loopLength = playerComparisonHand.length;
@@ -122,6 +125,7 @@ async function startGame() {
       loopLength = computerComparisonHand.length;
     }
 
+    // console.log(warStorage);
     // console.log(
     //   { playerHand: playerComparisonHand.length },
     //   { computerHand: computerComparisonHand.length }
@@ -141,6 +145,12 @@ async function startGame() {
       const playerCard = playerComparisonHand[i].comparisonValue;
       const computerCard = computerComparisonHand[i].comparisonValue;
 
+      console.log(
+        roundCounterPlayer,
+        roundCounterComputer,
+        gameRecord[gameRecord.length - 1]
+      );
+
       //   playerComparisonHand.length === 0;
 
       if (
@@ -148,6 +158,9 @@ async function startGame() {
         computerComparisonHand[i].comparisonValue
       ) {
         // Player Hand Win
+        roundCounterComputer--;
+        roundCounterPlayer++;
+
         gameRecord.push({
           round: roundNumber,
           winner: 'Player',
@@ -175,6 +188,9 @@ async function startGame() {
         playerComparisonHand[i].comparisonValue
       ) {
         // Computer Hand Win
+
+        roundCounterComputer++;
+        roundCounterPlayer--;
         gameRecord.push({
           round: roundNumber,
           winner: 'Computer',
@@ -206,6 +222,7 @@ async function startGame() {
         playerComparisonHand.length < 5 &&
         computerComparisonHand.length > playerComparisonHand.length
       ) {
+        roundCounterPlayer = 0;
         gameRecord.push({
           round: roundNumber,
           winner: 'Computer',
@@ -217,6 +234,7 @@ async function startGame() {
         });
         computerComparisonHand.length = 0;
         playerComparisonHand.length = 0;
+
         break;
       }
 
@@ -226,6 +244,7 @@ async function startGame() {
         computerComparisonHand.length < 5 &&
         playerComparisonHand.length > computerComparisonHand.length
       ) {
+        roundCounterComputer = 0;
         gameRecord.push({
           round: roundNumber,
           winner: 'Computer',
@@ -246,6 +265,8 @@ async function startGame() {
         computerComparisonHand.length === 1 &&
         playerComparisonHand === 1
       ) {
+        roundCounterComputer = 0;
+        roundCounterPlayer = 0;
         gameRecord.push({
           round: roundNumber,
           winner: 'Tie',
@@ -270,6 +291,9 @@ async function startGame() {
           warStorage.push(playerComparisonHand[j]);
           warStorage.push(computerComparisonHand[j]);
 
+          roundCounterComputer--;
+          roundCounterPlayer--;
+
           gameRecord.push({
             round: roundNumber,
             winner: 'War',
@@ -278,10 +302,6 @@ async function startGame() {
             war: true,
           });
 
-          console.log(
-            computerComparisonHand.length,
-            playerComparisonHand.length
-          );
           playerComparisonHand.shift();
           computerComparisonHand.shift();
         }
@@ -290,6 +310,7 @@ async function startGame() {
 
       computerComparisonHand.length = 0;
       playerComparisonHand.length = 0;
+      // console.log(computerComparisonHand.length, playerComparisonHand.length);
 
       //     computerComparisonHand.length > playerComparisonHand.length) {
     }
@@ -338,7 +359,8 @@ async function startGame() {
     //   }
   }
 
-  console.log(playerHand, computerHand);
+  // console.log(playerHand, computerHand);
+  // console.log(playerComparisonHand, computerComparisonHand);
 
   document.querySelector('#play-one-round-button').classList.remove('d-none');
 }
