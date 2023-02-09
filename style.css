@@ -1,0 +1,9 @@
+:root {
+  --ff-quicksand: 'Quicksand', sans-serif;
+  --ff-default: 'Quattrocento Sans', sans-serif;
+  --ff-war: 'Anton', sans-serif;
+}
+
+.ff-war {
+  font-family: var(--ff-war);
+}
