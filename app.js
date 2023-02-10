@@ -50,7 +50,7 @@ async function initialAPICall() {
     const response = await axios.get(
       'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1'
     );
-    // console.log(response);
+
     return response.data.deck_id;
   } catch (error) {
     console.log(error);
@@ -148,12 +148,42 @@ async function startGame() {
       loopLength = pcHand.length;
     }
 
+    /////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // console.dir(
+    //   { HumanHandLength: humanHand.length },
+    //   { pcHandLength: pcHand.length },
+    //   { gameRecord: gameRecord.at(-1) }
+    // );
     for (let i = 0; i < loopLength; i++) {
-      //   console.log(humanHand[i].image);
-      if (!humanHand[i] || !pcHand[i]) {
-        console.log('OUT OF VALUES', roundNumber);
-        // break;
-      }
+      // if (humanHand.length === 0) {
+      //   playerScore = 0;
+      // }
+
+      // if (pcHand.length === 0) {
+      //   computerScore = 0;
+      // }
+
+      ////////////////////////////////////////////////////////
+      // if (!humanHand[i]) {
+      //   humanHand.shift();
+      // }
+      // if (!pcHand[i]) {
+      //   pcHand.shift();
+      // }
+
+      // console.log(loopLength);
+      // if (!humanHand[i] || !pcHand[i]) {
+      //   console.log(
+      //     'OUT OF VALUES',
+      //     roundNumber,
+      //     humanHand,
+      //     pcHand,
+      //     gameRecord
+      //   );
+      //   // break;
+      // }
+
+      // console.log(humanHand.length, pcHand.length);
 
       if (playerScore === 0) {
         break;
@@ -170,7 +200,8 @@ async function startGame() {
       //   humanHand.length === 0;
 
       if (playerCard > computerCard) {
-        // Player Hand Win
+        console.log('player win line 204');
+        // PLAYER HAND WIN
         computerScore--;
         playerScore++;
 
@@ -198,13 +229,17 @@ async function startGame() {
 
         humanHand.push(pcHand[i]);
         humanHand.push(humanHand[i]);
-        humanHand.splice(i, 1);
-        pcHand.splice(i, 1);
+        // humanHand.splice(i, 1);
+        // pcHand.splice(i, 1);
+
+        humanHand.shift();
+        pcHand.shift();
 
         roundNumber++;
 
         break;
       } else if (computerCard > playerCard) {
+        console.log('computer win line 243');
         // Computer Hand Win
 
         computerScore++;
@@ -234,9 +269,12 @@ async function startGame() {
 
         //
         pcHand.push(humanHand[i]);
-        humanHand.splice(i, 1);
         pcHand.push(pcHand[i]);
-        pcHand.splice(i, 1);
+        // pcHand.splice(i, 1);
+        // humanHand.splice(i, 1);
+
+        pcHand.shift();
+        humanHand.shift();
 
         roundNumber++;
 
@@ -249,6 +287,7 @@ async function startGame() {
         humanHand.length < 5 &&
         pcHand.length > humanHand.length
       ) {
+        console.log('War - Player runs out of cards line 291');
         playerScore = 0;
 
         gameRecord.push(
@@ -278,6 +317,7 @@ async function startGame() {
         pcHand.length < 5 &&
         humanHand.length > pcHand.length
       ) {
+        console.log('War - Computer runs out of cards line 321');
         computerScore = 0;
 
         gameRecord.push(
@@ -305,8 +345,9 @@ async function startGame() {
       if (
         playerCard === computerCard &&
         pcHand.length === 1 &&
-        humanHand === 1
+        humanHand.length === 1
       ) {
+        console.log('War - Tie  line 351');
         computerScore = 0;
         playerScore = 0;
         gameRecord.push({
@@ -331,6 +372,7 @@ async function startGame() {
         pcHand.length >= 5 &&
         humanHand.length >= 5
       ) {
+        console.log('War - line 376');
         const roundResults = {
           playerCardPicture: humanHand[i].image,
           computerCardPicture: pcHand[i].image,
@@ -342,7 +384,8 @@ async function startGame() {
 
           computerScore--;
           playerScore--;
-
+        }
+        for (let j = 0; j < 4; j++) {
           humanHand.shift();
           pcHand.shift();
         }
@@ -355,21 +398,12 @@ async function startGame() {
 
         gameRecord.push(roundResults);
 
-        // gameRecord.push({
-        //   round: roundNumber,
-        //   winner: 'War',
-        //   playerScore: playerScore,
-        //   computerScore: computerScore,
-        //   // playerCardPicture: humanHand[i].image,
-        //   // computerCardPicture: pcHand[i].image,
-        //   war: true,
-
         // });
         break;
       }
 
-      pcHand.length = 0;
-      humanHand.length = 0;
+      // pcHand.length = 0;
+      // humanHand.length = 0;
       // console.log(pcHand.length, humanHand.length);
 
       //     pcHand.length > humanHand.length) {
@@ -379,14 +413,18 @@ async function startGame() {
       `playerScore: ${playerScore}`,
       `computerScore: ${computerScore}`,
       gameRecord[gameRecord.length - 1]
+      // humanHand,
+      // pcHand
     );
+
+    // console.log(playerHand.length, pcHand.length);
   }
 
   // console.log(playerHand, computerHand);
   // console.log(humanHand, pcHand);
 
   document.querySelector('#play-one-round-button').classList.remove('d-none');
-  console.log(gameRecord);
+  // console.log(gameRecord);
 }
 
 // START GAME BUTTON
