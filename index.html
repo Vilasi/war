@@ -29,23 +29,23 @@
       <h1 class="display-1 ff-war text-center">WAR! The Game</h1>
     </header>
     <main>
-      <button id="new-game-button" class="btn btn-primary">Start Game</button>
-      <button id="play-one-round-button" class="btn btn-success d-none">
-        Draw Your Cards!
-      </button>
+      <header class="text-center mb-5">
+        <button id="new-game-button" class="btn btn-primary">Start Game</button>
+        <button id="play-one-round-button" class="btn btn-success d-none">
+          Draw Your Cards!
+        </button>
+      </header>
 
-      <img
-        class="img-fluid"
-        id="player-card-img"
-        src="https://deckofcardsapi.com/static/img/2C.png"
-        alt="Player Card Image"
-      />
-      <img
-        class="img-fluid"
-        id="computer-card-img"
-        src="https://deckofcardsapi.com/static/img/2C.png"
-        alt="Computer Card Image"
-      />
+      <div class="container d-flex justify-content-center vw-100 mt-5">
+        <!-- <h1 class="d-none title">Test</h1> -->
+        <h1 id="player-title" class="d-none title">
+          <span id="player-title-text" class="badge bg-success">Player</span>
+        </h1>
+
+        <img class="w-25 round me-5" id="player-card-img" src="" alt="" />
+
+        <img class="w-25 round" id="computer-card-img" src="" alt="" />
+      </div>
     </main>
 
     <!-- Bootstrap -->

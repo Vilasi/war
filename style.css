@@ -7,3 +7,10 @@
 .ff-war {
   font-family: var(--ff-war);
 }
+
+#player-title {
+  position: absolute;
+  /* left: 34rem; */
+  left: calc(100vw - 65%);
+  bottom: calc(100vh - 75%);
+}

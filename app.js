@@ -409,13 +409,13 @@ async function startGame() {
       //     pcHand.length > humanHand.length) {
     }
 
-    console.log(
-      `playerScore: ${playerScore}`,
-      `computerScore: ${computerScore}`,
-      gameRecord[gameRecord.length - 1]
-      // humanHand,
-      // pcHand
-    );
+    // console.log(
+    //   `playerScore: ${playerScore}`,
+    //   `computerScore: ${computerScore}`,
+    //   gameRecord[gameRecord.length - 1]
+    //   // humanHand,
+    //   // pcHand
+    // );
 
     // console.log(playerHand.length, pcHand.length);
   }
@@ -424,22 +424,95 @@ async function startGame() {
   // console.log(humanHand, pcHand);
 
   document.querySelector('#play-one-round-button').classList.remove('d-none');
-  // console.log(gameRecord);
+  document.querySelector('#player-card-img').src =
+    './images/playing-card-back.jpg';
+  document.querySelector('#computer-card-img').src =
+    './images/playing-card-back.jpg';
+
+  const title = document.querySelectorAll('.title');
+  title.forEach((tag) => tag.classList.remove('d-none'));
+  console.log(title);
 }
 
 // START GAME BUTTON
 const startButton = document.querySelector('#new-game-button');
-startButton.addEventListener('click', startGame); //////////////////////// UNCOMMENT
+startButton.addEventListener('click', startGame);
 
 // Play Round Button Event Listener
 const playOneRoundButton = document.querySelector('#play-one-round-button');
-playOneRoundButton.addEventListener('click', () => {});
+let roundCounter = -1;
+playOneRoundButton.addEventListener('click', () => {
+  const playerCardImage = document.querySelector('#player-card-img');
+  const pcCardImage = document.querySelector('#computer-card-img');
+  const playerTitleText = document.querySelector('#player-title-text');
 
-// (async function () {
-//   try {
-//     // const test = await
-//     return await getFullDeck();
-//   } catch (error) {
-//     console.log(error);
+  roundCounter++;
+
+  playerCardImage.src = gameRecord[roundCounter].humanCardPic;
+  pcCardImage.src = gameRecord[roundCounter].pcCardPic;
+
+  if (gameRecord[roundCounter].winner === 'Player') {
+    playerTitleText.textContent = 'You Win!';
+    playerTitleText.classList.add('bg-success');
+    playerTitleText.classList.remove('bg-danger');
+  } else {
+    playerTitleText.textContent = 'You Lose!';
+    playerTitleText.classList.add('bg-danger');
+    playerTitleText.classList.remove('bg-success');
+  }
+
+  console.log(gameRecord[roundCounter]);
+});
+
+// a function that prints all prime number from 1 to 100
+// function getPrimes(num) {
+//   const referenceArray = [];
+//   const arrayOfPrimes = [];
+//   for (let i = 1; i <= num; i++) {
+//     referenceArray.push(i);
 //   }
-// })();
+
+//   for (let i = num; i >= 0; i--) {
+//     const currentNum = i;
+
+//     for (let j = 2; j < currentNum; j++) {
+//       if (currentNum % j === 0) {
+//         continue;
+//       }
+//       arrayOfPrimes.push(currentNum);
+//     }
+//   }
+
+//   console.log(arrayOfPrimes);
+// }
+
+function getPrimes(num) {
+  const referenceArray = [];
+  const primeArray = [];
+  let resultsArray = [];
+
+  //Create Reference Array of All Numbers between 2 and num
+  for (let i = 2; i <= num; i++) {
+    referenceArray.push(i);
+  }
+
+  // Create an array of remainders.
+  for (let i = 0; i < referenceArray.length; i++) {
+    for (let j = referenceArray[i]; j > 1; j--) {
+      resultsArray.push(referenceArray[i] % j);
+    }
+    // First number always divides by itself, and is thus thrown away.
+    resultsArray.shift();
+
+    // Check if every dividing operation produced a remainder.
+    const isPrime = resultsArray.every((val) => val > 0);
+
+    //If all numbers in resultsArray pass the test, number is prime.
+    if (isPrime) {
+      primeArray.push(referenceArray[i]);
+    }
+    resultsArray = [];
+  }
+
+  console.log(primeArray);
+}
