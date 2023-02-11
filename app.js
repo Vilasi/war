@@ -438,6 +438,9 @@ async function startGame() {
 const startButton = document.querySelector('#new-game-button');
 startButton.addEventListener('click', startGame);
 
+// Card Images
+const cardImages = document.querySelectorAll('.card-img');
+
 // Play Round Button Event Listener
 const playOneRoundButton = document.querySelector('#play-one-round-button');
 let roundCounter = -1;
@@ -445,6 +448,7 @@ playOneRoundButton.addEventListener('click', () => {
   const playerCardImage = document.querySelector('#player-card-img');
   const pcCardImage = document.querySelector('#computer-card-img');
   const playerTitleText = document.querySelector('#player-title-text');
+  const pcTitleText = document.querySelector('#pc-title-text');
 
   roundCounter++;
 
@@ -453,66 +457,32 @@ playOneRoundButton.addEventListener('click', () => {
 
   if (gameRecord[roundCounter].winner === 'Player') {
     playerTitleText.textContent = 'You Win!';
+    pcTitleText.textContent = 'You Lose!';
+
+    pcTitleText.classList.add('bg-danger');
     playerTitleText.classList.add('bg-success');
+
     playerTitleText.classList.remove('bg-danger');
+    pcTitleText.classList.remove('bg-success');
   } else {
     playerTitleText.textContent = 'You Lose!';
+    pcTitleText.textContent = 'You Win!';
+
     playerTitleText.classList.add('bg-danger');
+    pcTitleText.classList.add('bg-danger');
+
     playerTitleText.classList.remove('bg-success');
+    pcTitleText.classList.remove('bg-danger');
   }
 
   console.log(gameRecord[roundCounter]);
 });
 
-// a function that prints all prime number from 1 to 100
-// function getPrimes(num) {
-//   const referenceArray = [];
-//   const arrayOfPrimes = [];
-//   for (let i = 1; i <= num; i++) {
-//     referenceArray.push(i);
-//   }
-
-//   for (let i = num; i >= 0; i--) {
-//     const currentNum = i;
-
-//     for (let j = 2; j < currentNum; j++) {
-//       if (currentNum % j === 0) {
-//         continue;
-//       }
-//       arrayOfPrimes.push(currentNum);
-//     }
-//   }
-
-//   console.log(arrayOfPrimes);
-// }
-
-function getPrimes(num) {
-  const referenceArray = [];
-  const primeArray = [];
-  let resultsArray = [];
-
-  //Create Reference Array of All Numbers between 2 and num
-  for (let i = 2; i <= num; i++) {
-    referenceArray.push(i);
-  }
-
-  // Create an array of remainders.
-  for (let i = 0; i < referenceArray.length; i++) {
-    for (let j = referenceArray[i]; j > 1; j--) {
-      resultsArray.push(referenceArray[i] % j);
-    }
-    // First number always divides by itself, and is thus thrown away.
-    resultsArray.shift();
-
-    // Check if every dividing operation produced a remainder.
-    const isPrime = resultsArray.every((val) => val > 0);
-
-    //If all numbers in resultsArray pass the test, number is prime.
-    if (isPrime) {
-      primeArray.push(referenceArray[i]);
-    }
-    resultsArray = [];
-  }
-
-  console.log(primeArray);
+if (window.innerWidth < 576) {
+  cardImages.forEach((image) => {
+    image.classList.remove('me-5');
+    // image.classList.add('.even-margins');
+    image.classList.remove('w-75');
+    image.classList.add('w-90');
+  });
 }
