@@ -46,6 +46,10 @@
 
 const playerCardImage = document.querySelector('#player-card-img');
 const pcCardImage = document.querySelector('#computer-card-img');
+
+const introCardToBeAnimated = document.querySelectorAll('.card');
+const shuffleAudio = new Audio('./audio/card-shuffle.wav');
+
 // https://codepen.io/richardramsay/pen/ZRLzPg
 // ^Check this out for card animation
 
@@ -413,6 +417,13 @@ async function startGame() {
 // START GAME BUTTON
 const startButton = document.querySelector('#new-game-button');
 startButton.addEventListener('click', startGame);
+startButton.addEventListener('click', () => {
+  for (let card of introCardToBeAnimated) {
+    card.classList.add('card-animation');
+  }
+
+  shuffleAudio.play();
+});
 
 // Card Images
 const cardImages = document.querySelectorAll('.card-img');

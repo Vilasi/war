@@ -8,54 +8,6 @@
   font-family: var(--ff-war);
 }
 
-.player-title {
-  position: absolute;
-  /* left: 34rem; */
-  /* left: calc(100vw - 65%);
-  bottom: calc(100vh - 75%); */
-  bottom: -1.7em;
-}
-
-.card-box {
-  position: relative;
-  min-height: 70vh;
-  /* padding-left: 10rem; */
-}
-
-.even-margins {
-  margin: 0 auto;
-}
-
-.w-90 {
-  width: 90% !important;
-}
-
-/* @media only screen and (max-width: 1400px) {
-  .card-box {
-    min-height: 60vh;
-  }
-}
-@media only screen and (max-width: 1200px) {
-  .card-box {
-    min-height: 50vh;
-  }
-}
-@media only screen and (max-width: 992px) {
-  .card-box {
-    min-height: 40vh;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .card-box {
-    min-height: 30vh;
-  }
-}
-@media only screen and (max-width: 576px) {
-  .card-box {
-    min-height: 20vh;
-  }
-} */
-
 body {
   background-color: #f7f7f7;
 }
@@ -85,7 +37,7 @@ body {
 }
 
 .card-animation {
-  animation: onTop 0.5s 0.1s ease 5;
+  animation: onTop 0.5s 0.1s ease 6;
 }
 
 .card.one {
@@ -106,12 +58,7 @@ body {
   z-index: 0;
   animation-name: onBottom;
 }
-/* .card.three {
-  left: 8px;
-  top: 8px;
-  z-index: 0;
-  animation-name: onBottom;
-} */
+
 .card span {
   font-size: 24px;
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans',
