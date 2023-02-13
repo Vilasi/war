@@ -47,8 +47,17 @@
 const playerCardImage = document.querySelector('#player-card-img');
 const pcCardImage = document.querySelector('#computer-card-img');
 
+const figure = document.querySelector('.stack');
+
 const introCardToBeAnimated = document.querySelectorAll('.card');
 const shuffleAudio = new Audio('./audio/card-shuffle.wav');
+
+const cardImg = `<img
+              class="w-100 img-fluid round card-img"
+              id="player-card-img"
+              src="./images/playing-card-back.jpg"
+              alt="card"
+            />`;
 
 // https://codepen.io/richardramsay/pen/ZRLzPg
 // ^Check this out for card animation
@@ -423,7 +432,31 @@ startButton.addEventListener('click', () => {
   }
 
   shuffleAudio.play();
+
+  // Delete card, reincorporate a single card :)
+  setTimeout(() => {
+    // figure.classList.add('d-none');
+    figure.innerHTML = '';
+
+    const cardDiv = document.createElement('div');
+    const img = document.createElement('img');
+    cardDiv.classList.add('card');
+    img.classList.add('w-100', 'img-fluid', 'round', 'card-img');
+    img.setAttribute('src', './images/playing-card-back.jpg');
+
+    cardDiv.append(img);
+    figure.append(cardDiv);
+  }, 2500);
 });
+
+{
+  /* <img
+  class="w-100 img-fluid round card-img"
+  id="player-card-img"
+  src="./images/playing-card-back.jpg"
+  alt="card"
+/>; */
+}
 
 // Card Images
 const cardImages = document.querySelectorAll('.card-img');
