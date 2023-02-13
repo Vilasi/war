@@ -48,6 +48,12 @@ const playerCardImage = document.querySelector('#player-card-img');
 const pcCardImage = document.querySelector('#computer-card-img');
 // https://codepen.io/richardramsay/pen/ZRLzPg
 // ^Check this out for card animation
+
+// window.addEventListener('load', () => {
+//   const audio = new Audio('./audio/card-shuffle.wav');
+//   audio.play();
+// });
+
 // Call API to get deck code
 async function initialAPICall() {
   try {
