@@ -44,6 +44,10 @@
 //   }
 // }
 
+const playerCardImage = document.querySelector('#player-card-img');
+const pcCardImage = document.querySelector('#computer-card-img');
+// https://codepen.io/richardramsay/pen/ZRLzPg
+// ^Check this out for card animation
 // Call API to get deck code
 async function initialAPICall() {
   try {
@@ -98,8 +102,8 @@ class GameResult {
 }
 
 // Sets both players hands and prerequisite values for game start.
-const playerHand = [],
-  computerHand = [];
+const playerHand = [];
+const computerHand = [];
 const gameRecord = [];
 
 async function startGame() {
@@ -149,28 +153,7 @@ async function startGame() {
     }
 
     /////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // console.dir(
-    //   { HumanHandLength: humanHand.length },
-    //   { pcHandLength: pcHand.length },
-    //   { gameRecord: gameRecord.at(-1) }
-    // );
     for (let i = 0; i < loopLength; i++) {
-      // if (humanHand.length === 0) {
-      //   playerScore = 0;
-      // }
-
-      // if (pcHand.length === 0) {
-      //   computerScore = 0;
-      // }
-
-      ////////////////////////////////////////////////////////
-      // if (!humanHand[i]) {
-      //   humanHand.shift();
-      // }
-      // if (!pcHand[i]) {
-      //   pcHand.shift();
-      // }
-
       // console.log(loopLength);
       // if (!humanHand[i] || !pcHand[i]) {
       //   console.log(
@@ -182,8 +165,6 @@ async function startGame() {
       //   );
       //   // break;
       // }
-
-      // console.log(humanHand.length, pcHand.length);
 
       if (playerScore === 0) {
         break;
@@ -199,9 +180,9 @@ async function startGame() {
 
       //   humanHand.length === 0;
 
+      // PLAYER HAND WIN
       if (playerCard > computerCard) {
         console.log('player win line 204');
-        // PLAYER HAND WIN
         computerScore--;
         playerScore++;
 
@@ -270,8 +251,6 @@ async function startGame() {
         //
         pcHand.push(humanHand[i]);
         pcHand.push(pcHand[i]);
-        // pcHand.splice(i, 1);
-        // humanHand.splice(i, 1);
 
         pcHand.shift();
         humanHand.shift();
@@ -401,12 +380,6 @@ async function startGame() {
         // });
         break;
       }
-
-      // pcHand.length = 0;
-      // humanHand.length = 0;
-      // console.log(pcHand.length, humanHand.length);
-
-      //     pcHand.length > humanHand.length) {
     }
 
     // console.log(
@@ -416,16 +389,13 @@ async function startGame() {
     //   // humanHand,
     //   // pcHand
     // );
-
-    // console.log(playerHand.length, pcHand.length);
   }
 
-  // console.log(playerHand, computerHand);
-  // console.log(humanHand, pcHand);
-
   document.querySelector('#play-one-round-button').classList.remove('d-none');
+
   document.querySelector('#player-card-img').src =
     './images/playing-card-back.jpg';
+
   document.querySelector('#computer-card-img').src =
     './images/playing-card-back.jpg';
 
@@ -445,8 +415,8 @@ const cardImages = document.querySelectorAll('.card-img');
 const playOneRoundButton = document.querySelector('#play-one-round-button');
 let roundCounter = -1;
 playOneRoundButton.addEventListener('click', () => {
-  const playerCardImage = document.querySelector('#player-card-img');
-  const pcCardImage = document.querySelector('#computer-card-img');
+  // const playerCardImage = document.querySelector('#player-card-img');
+  // const pcCardImage = document.querySelector('#computer-card-img');
   const playerTitleText = document.querySelector('#player-title-text');
   const pcTitleText = document.querySelector('#pc-title-text');
 
@@ -469,7 +439,7 @@ playOneRoundButton.addEventListener('click', () => {
     pcTitleText.textContent = 'You Win!';
 
     playerTitleText.classList.add('bg-danger');
-    pcTitleText.classList.add('bg-danger');
+    pcTitleText.classList.add('bg-success');
 
     playerTitleText.classList.remove('bg-success');
     pcTitleText.classList.remove('bg-danger');
