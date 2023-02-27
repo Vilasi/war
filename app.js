@@ -409,30 +409,41 @@ async function startGame() {
   console.log(title);
 }
 
-// START GAME BUTTON
+// START GAME
 const startButton = document.querySelector('#new-game-button');
+
+//----Event listeners to stat game
 startButton.addEventListener('click', startGame);
+
 startButton.addEventListener('click', () => {
-  for (let card of introCardToBeAnimated) {
-    card.classList.add('card-animation');
-  }
+  const shuffleGif = document.querySelector('#shuffle-gif');
+  // for (let card of introCardToBeAnimated) {
+  //   card.classList.add('card-animation');
+  // }
 
-  shuffleAudio.play();
-
-  // Delete card, reincorporate a single card :)
+  shuffleGif.classList.remove('d-none');
+  shuffleGif.src = './images/gif/shuffle.gif';
   setTimeout(() => {
-    // figure.classList.add('d-none');
-    figure.innerHTML = '';
+    shuffleAudio.play();
+  }, 1010);
 
-    const cardDiv = document.createElement('div');
-    const img = document.createElement('img');
-    cardDiv.classList.add('card');
-    img.classList.add('w-100', 'img-fluid', 'round', 'card-img');
-    img.setAttribute('src', './images/playing-card-back.jpg');
+  setTimeout(() => {
+    shuffleGif.classList.add('d-none');
+  }, 3650);
+  // Delete card, reincorporate a single card :)
+  // setTimeout(() => {
+  //   // figure.classList.add('d-none');
+  //   figure.innerHTML = '';
 
-    cardDiv.append(img);
-    figure.append(cardDiv);
-  }, 2500);
+  //   const cardDiv = document.createElement('div');
+  //   const img = document.createElement('img');
+  //   cardDiv.classList.add('card');
+  //   img.classList.add('w-100', 'img-fluid', 'round', 'card-img');
+  //   img.setAttribute('src', './images/playing-card-back.jpg');
+
+  //   cardDiv.append(img);
+  //   figure.append(cardDiv);
+  // }, 2500);
 });
 
 {
