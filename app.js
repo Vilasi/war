@@ -146,6 +146,7 @@ async function startGame() {
       deckOfCards[i].comparisonValue = Number(value);
     }
 
+    // Create Player Hand of Cards and Computer Hand of Cards
     const firstHalfOfDeck = 26;
     if (i < firstHalfOfDeck) {
       playerHand.push(deckOfCards[i]);
@@ -154,37 +155,30 @@ async function startGame() {
     }
   }
 
-  let loopLength = 26;
-  let roundNumber = 0;
+  //Create copies of player and computer hand to work on during the game.
+  //variables (playerHand) and (computerHand) work as a record of the player's hand from before the game begins
   const humanHand = [...playerHand];
   const pcHand = [...computerHand];
+  let loopLength = 26;
+  let roundNumber = 0;
   let warStorage = [];
 
+  //The player's (or computer's) score will always be determined by the length of the cards held in hand (variables: humanHand, pcHand)
   let playerScore = humanHand.length;
   let computerScore = pcHand.length;
 
+  // The while loop will end whenever either the player's or computer's score reaches 0
   while (playerScore > 0 && computerScore > 0) {
     // Determines how long the below for loop will run
-    if (humanHand.length < pcHand.length) {
-      loopLength = humanHand.length;
-    } else if (pcHand.length < humanHand.length) {
-      loopLength = pcHand.length;
+    // At the start of each iteration of the while loop, set the length of the Line 181 For Loop to the lowest score: either playerScore or computer Score
+    if (playerScore < computerScore) {
+      loopLength = playerScore;
+    } else if (computerScore < playerScore) {
+      loopLength = computerScore;
     }
 
     /////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for (let i = 0; i < loopLength; i++) {
-      // console.log(loopLength);
-      // if (!humanHand[i] || !pcHand[i]) {
-      //   console.log(
-      //     'OUT OF VALUES',
-      //     roundNumber,
-      //     humanHand,
-      //     pcHand,
-      //     gameRecord
-      //   );
-      //   // break;
-      // }
-
       if (playerScore === 0) {
         break;
       }
@@ -197,7 +191,7 @@ async function startGame() {
       const playerCard = humanHand[i].comparisonValue;
       const computerCard = pcHand[i].comparisonValue;
 
-      //   humanHand.length === 0;
+      //   playerScore === 0;
 
       // PLAYER HAND WIN
       if (playerCard > computerCard) {
@@ -267,7 +261,6 @@ async function startGame() {
           )
         );
 
-        //
         pcHand.push(humanHand[i]);
         pcHand.push(pcHand[i]);
 
@@ -282,8 +275,8 @@ async function startGame() {
       // War - Player runs out of cards
       if (
         playerCard === computerCard &&
-        humanHand.length < 5 &&
-        pcHand.length > humanHand.length
+        playerScore < 5 &&
+        computerScore > playerScore
       ) {
         console.log('War - Player runs out of cards line 291');
         playerScore = 0;
@@ -303,8 +296,6 @@ async function startGame() {
             true
           )
         );
-        pcHand.length = 0;
-        humanHand.length = 0;
 
         break;
       }
@@ -312,8 +303,8 @@ async function startGame() {
       // War - Computer runs out of cards
       if (
         playerCard === computerCard &&
-        pcHand.length < 5 &&
-        humanHand.length > pcHand.length
+        computerScore < 5 &&
+        playerScore > computerScore
       ) {
         console.log('War - Computer runs out of cards line 321');
         computerScore = 0;
@@ -334,16 +325,14 @@ async function startGame() {
           )
         );
 
-        pcHand.length = 0;
-        humanHand.length = 0;
         break;
       }
 
       //   Final Tie at War
       if (
         playerCard === computerCard &&
-        pcHand.length === 1 &&
-        humanHand.length === 1
+        computerScore === 1 &&
+        playerScore === 1
       ) {
         console.log('War - Tie  line 351');
         computerScore = 0;
@@ -358,17 +347,14 @@ async function startGame() {
           war: true,
         });
 
-        pcHand.length = 0;
-        humanHand.length = 0;
-
         break;
       }
 
       //   War
       if (
         playerCard === computerCard &&
-        pcHand.length >= 5 &&
-        humanHand.length >= 5
+        computerScore >= 5 &&
+        playerScore >= 5
       ) {
         console.log('War - line 376');
         const roundResults = {
@@ -396,18 +382,18 @@ async function startGame() {
 
         gameRecord.push(roundResults);
 
-        // });
         break;
       }
     }
 
-    // console.log(
-    //   `playerScore: ${playerScore}`,
-    //   `computerScore: ${computerScore}`,
-    //   gameRecord[gameRecord.length - 1]
-    //   // humanHand,
-    //   // pcHand
-    // );
+    // Below console log shows the results of the game
+    console.log(
+      `playerScore: ${playerScore}`,
+      `computerScore: ${computerScore}`,
+      gameRecord[gameRecord.length - 1]
+      // humanHand,
+      // pcHand
+    );
   }
 
   document.querySelector('#play-one-round-button').classList.remove('d-none');
