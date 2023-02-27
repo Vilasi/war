@@ -446,14 +446,14 @@ startButton.addEventListener('click', () => {
   // }, 2500);
 });
 
-{
-  /* <img
+// {
+/* <img
   class="w-100 img-fluid round card-img"
   id="player-card-img"
   src="./images/playing-card-back.jpg"
   alt="card"
 />; */
-}
+// }
 
 // Card Images
 const cardImages = document.querySelectorAll('.card-img');
